@@ -10,29 +10,26 @@ class CardViewer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      displayFront: true,
       currentIndex: 0,
+      displayFront: true,
     };
   }
-
   nextCard = () => {
     if (this.state.currentIndex < this.props.cards.length - 1) {
       this.setState({
-        displayFront: true,
         currentIndex: this.state.currentIndex + 1,
+        displayFront: true,
       });
     }
   };
-
   prevCard = () => {
     if (this.state.currentIndex > 0) {
       this.setState({
-        displayFront: true,
         currentIndex: this.state.currentIndex - 1,
+        displayFront: true,
       });
     }
   };
-
   flipCard = () => this.setState({ displayFront: !this.state.displayFront });
 
   render() {
@@ -44,6 +41,8 @@ class CardViewer extends React.Component {
       return <div>Page not found!</div>;
     }
 
+    // this uses the ternary operator:
+    // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Conditional_Operator
     const card = this.props.cards[this.state.currentIndex][
       this.state.displayFront ? 'front' : 'back'
     ];
@@ -60,7 +59,7 @@ class CardViewer extends React.Component {
           disabled={this.state.currentIndex === 0}
           onClick={this.prevCard}
         >
-          Previous card
+          Prev card
         </button>
         <button
           disabled={this.state.currentIndex === this.props.cards.length - 1}
@@ -75,19 +74,18 @@ class CardViewer extends React.Component {
   }
 }
 
-export default CardViewer;
-// const mapStateToProps = (state, props) => {
-//   const deck = state.firebase.data[props.match.params.deckId];
-//   const name = deck && deck.name;
-//   const cards = deck && deck.cards;
-//   return { cards: cards, name: name };
-// };
+const mapStateToProps = (state, props) => {
+  const deck = state.firebase.data[props.match.params.deckId];
+  const name = deck && deck.name;
+  const cards = deck && deck.cards;
+  return { cards: cards, name: name };
+};
 
-// export default compose(
-//   withRouter,
-//   firebaseConnect(props => {
-//     const deckId = props.match.params.deckId;
-//     return [{ path: `/flashcards/${deckId}`, storeAs: deckId }];
-//   }),
-//   connect(mapStateToProps),
-// )(CardViewer);
+export default compose(
+  withRouter,
+  firebaseConnect(props => {
+    const deckId = props.match.params.deckId;
+    return [{ path: `/flashcards/${deckId}`, storeAs: deckId }];
+  }),
+  connect(mapStateToProps),
+)(CardViewer);
