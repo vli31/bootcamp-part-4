@@ -78,6 +78,7 @@ const mapStateToProps = (state, props) => {
   const deck = state.firebase.data[props.match.params.deckId];
   const name = deck && deck.name;
   const cards = deck && deck.cards;
+  console.log(state);
   return { cards: cards, name: name };
 };
 

@@ -1,0 +1,14 @@
+{
+  "rules": {
+    "flashcards": {
+    	"$deckId": {
+        ".read": true,
+      	".write": true
+    	}
+  	},
+    "homepage": {
+      ".read": true,
+      ".write": true
+    }
+	}
+}
